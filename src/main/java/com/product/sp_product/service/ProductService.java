@@ -19,7 +19,7 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    public Product createProduct(ProductRequest productRequest) {
+    public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = Product.builder()
                 .name(productRequest.name())
                 .description(productRequest.descrption())
@@ -29,14 +29,15 @@ public class ProductService {
         productRepository.save(product);
         log.info("Product created successfully");
 
-        return product;
+        return new ProductResponse(product.getId(), product.getName(), product.getDescription(), product.getPrice());
     }
 
     public List<ProductResponse> getAllProducts() {
         return productRepository.findAll()
-        .stream()
-        .map(product -> new ProductResponse(product.getId(), product.getName(), product.getDescription(), product.getPrice()))
-        .toList();
+                .stream()
+                .map(product -> new ProductResponse(product.getId(), product.getName(), product.getDescription(),
+                        product.getPrice()))
+                .toList();
     }
 
 }
