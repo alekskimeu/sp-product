@@ -22,7 +22,7 @@ public class ProductService {
     public ProductResponse createProduct(ProductRequest productRequest) {
         Product product = Product.builder()
                 .name(productRequest.name())
-                .description(productRequest.descrption())
+                .description(productRequest.description())
                 .price(productRequest.price())
                 .build();
 
